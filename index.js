@@ -7,33 +7,7 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-const func = async (link) => {
-  new Promise( (resolve, reject) => {
-    request(link,
-      (err, resp, html) => {
-        if (!err && resp.statusCode == 200) {
-          const $ = cheerio.load(html);
-          const tbody = $('tbody');
-          if (tbody.html() === null) {
-            reject();
-          } else {
-            resolve();
-          }
-        } else {
-          reject();
-        }
-      }
-    )
-  })
-  .then(() => {
-    return true;
-  })
-  .catch(() => {
-    return false;
-  });
-}
-
-const func2 = async (link) => {
+const cheerioRequest = async (link) => {
   return new Promise( (resolve, reject) => {
     requestPromise(link,
       (err, response, html) => {
@@ -51,10 +25,8 @@ const func2 = async (link) => {
       }
     )
   }).then( () => {
-    console.log("wah");
     return true;
   }).catch( () => {
-    console.log("weg");
     return false;
   });
 }
@@ -65,11 +37,18 @@ app.listen(PORT, async (err) => {
   } else {
     console.log(`Server running at PORT ${PORT}`);
     try {
-      const val = await func2("https://atcoder.jp/contests/abc266/submissions?f.Task=abc266_a&f.User=smurfedAtCode");
+      const val = await cheerioRequest("https://atcoder.jp/contests/abc266/submissions?f.Task=abc266_a&f.User=smurfedAtCoder");
       console.log(val);
     } catch (error) {
       console.log(error);
     }
-    
   }
-})
+});
+
+/**
+ * Take note of link form
+ * https://atcoder.jp/contests/($1)/submissions?f.Task=($2)&f.User=($3)
+ * $1 = contest ID (abc###, arc###, agc###)
+ * $2 = problem ID (abc###_a ...)
+ * $3 = username
+ */
