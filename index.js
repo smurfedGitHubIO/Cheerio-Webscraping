@@ -5,29 +5,9 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-// const cheerioRequest = async (link) => {
-//   return new Promise( (resolve, reject) => {
-//     got(link,
-//       (err, response, html) => {
-//         if (!err && response.statusCode === 200) {
-//           const $ = cheerio.load(html);
-//           const tbody = $('tbody');
-//           if (tbody.html() === null) {
-//             reject();
-//           } else {
-//             resolve();
-//           }
-//         } else {
-//           reject();
-//         }
-//       }
-//     )
-//   }).then( () => {
-//     return true;
-//   }).catch( () => {
-//     return false;
-//   });
-// }
+/**
+ * @todo: fix deprecated cheerio
+ */
 
 app.listen(PORT, async (err) => {
   if (err) {
