@@ -29,11 +29,3 @@ app.listen(PORT, async (err) => {
     }
   }
 });
-
-/**
- * Take note of link form
- * https://atcoder.jp/contests/($1)/submissions?f.Task=($2)&f.User=($3)
- * $1 = contest ID (abc###, arc###, agc###)
- * $2 = problem ID (abc###_a ...)
- * $3 = username
- */
