@@ -1,4 +1,5 @@
-const cheerio = require('cheerio').default;
+const {load} = require('cheerio');
+// import {load} from 'cheerio'; 
 const express = require('express');
 const fetch = require('node-fetch');
 const app = express();
@@ -17,11 +18,10 @@ app.listen(PORT, async (err) => {
     try {
       (
         async () => {
-          const resp = await fetch('https://atcoder.jp/contests/abc266/submissions?f.Task=abc266_a&f.User=smurfedAtcode');
+          const resp = await fetch('https://diksiyonaryo.ph/search/saysay');
           const body = await resp.text();
-          const val = cheerio.load(body);
-          const wah = val('tbody');
-          console.log(wah.html());
+          const $ = load(body);
+          console.log($('.word').text());
         }
       )();
     } catch (error) {
